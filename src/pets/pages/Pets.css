@@ -1,0 +1,11 @@
+.card-group {
+  display: grid;
+  grid-template-columns: repeat(3, 0.2fr);
+}
+
+.card-info{
+  display: grid;
+  grid-template-columns: repeat(2, 1.2fr);
+  justify-items: center;
+  font-weight: bold;
+}

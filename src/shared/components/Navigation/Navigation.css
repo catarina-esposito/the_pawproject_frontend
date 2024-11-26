@@ -9,21 +9,7 @@ nav {
   align-items: center;
 }
 
-img {
+nav img {
   width: 80px;
-}
-
-a.link {
-  text-decoration: none;
-  background-color: #ad893f;
-  color: #010100;
   border-radius: 5px;
-  padding: 6px 12px;
-}
-
-a:hover,
-a:active {
-  background-color: #faf7f1;
-  color: #bb9445;
-  font-weight: bold;
 }
