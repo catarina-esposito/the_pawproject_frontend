@@ -1,0 +1,32 @@
+.button {
+    border-radius: 9px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media screen and (max-width: 768px) {
+    .button {
+        font-size: 16px;
+    }
+}
+
+.addCustomButton {
+    border-radius: 9px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: transparent;
+    color: #000000;
+    border: 2px solid #DBDBD9 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .addCustomButton {
+        font-size: 14px;
+        padding: 6px;
+    }
+}
+
+.addCustomButton:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
