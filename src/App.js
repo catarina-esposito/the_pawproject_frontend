@@ -1,48 +1,71 @@
+import React, { useState, useCallback } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
   Redirect,
+  Switch,
 } from "react-router-dom";
 
-import Home from "./components/Home";
-import LoginForm from "./components/LoginForm"; 
-import LogoutButton from "./components/LogoutButton"; 
-import React, { useState } from "react";
+import Pets from "./pets/pages/Pets";
+import Navigation from "./shared/components/Navigation/Navigation";
+import Footer from "./shared/components/Footer/Footer";
+import Login from "./users/pages/Login";
+import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [petId, setPetId] = useState(false);
 
- 
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
+  const login = useCallback((uid) => {
+    setIsLoggedIn(true);
+    setPetId(uid);
+  }, []);
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+    setPetId(null);
+  }, []);
+
+  let routes;
+
+  if (isLoggedIn) {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Pets />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Pets />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
+    );
+  }
 
   return (
-    <Router>
-      <main>
-        <Switch>
-          {/* Home Route */}
-          <Route path="/" exact>
-            <Home />
-            {isAuthenticated && <LogoutButton onLogout={handleLogout} />} {/* Show Logout Button if logged in */}
-          </Route>
-
-          {/* Login Route */}
-          <Route path="/login" exact>
-            <LoginForm onLogin={handleLogin} /> {/* Pass login callback */}
-          </Route>
-
-          {/* Redirect to Home */}
-          <Redirect to="/" />
-        </Switch>
-      </main>
-    </Router>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+        petId: petId,
+        login: login,
+        logout: logout,
+      }}
+    >
+      <Router>
+        <Navigation />
+        <main>{routes}</main>
+        <Footer />
+      </Router>
+    </AuthContext.Provider>
   );
 };
 
