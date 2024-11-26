@@ -1,0 +1,29 @@
+/* Nav style */
+nav {
+  background-color: #b8c7e5;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 0 0 5px 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+img {
+  width: 80px;
+}
+
+a.link {
+  text-decoration: none;
+  background-color: #ad893f;
+  color: #010100;
+  border-radius: 5px;
+  padding: 6px 12px;
+}
+
+a:hover,
+a:active {
+  background-color: #faf7f1;
+  color: #bb9445;
+  font-weight: bold;
+}
