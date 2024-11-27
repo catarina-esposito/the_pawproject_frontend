@@ -1,0 +1,11 @@
+.add-form {
+    margin: auto;
+    width: 50%;
+}
+
+.form-btn {
+    background-color: #ad893f;
+    border-radius: 6px;
+    color: #010100;
+    margin-bottom: 12px;
+}
