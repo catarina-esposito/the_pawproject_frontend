@@ -60,7 +60,6 @@ const Login = () => {
 
     const authSubmitHandler = async (event) => {
         event.preventDefault();
-
         if (isLoginMode) {
             try {
                 const responseData = await sendRequest(
@@ -126,13 +125,10 @@ const Login = () => {
                     errorText="Please enter a valid password, at least 6 characters."
                     onInput={inputHandler}
                 />
-                <button type="submit" disabled={!formState.isValid}>
+                <button className="form-btn" type="submit" disabled={!formState.isValid}>
                     {isLoginMode ? "LOGIN" : "SIGNUP"}
                 </button>
             </form>
-            <button inverse onClick={switchModeHandler}>
-                SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
-            </button>
         </div>
     );
 };

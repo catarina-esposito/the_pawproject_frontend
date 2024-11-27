@@ -17,8 +17,12 @@ const Pet = ({ pet }) => {
       </div>
       <div className="card-body">
         <p className="card-text">{pet.description}</p>
+        {/* make this CRUD only available when user is logged in */}
         <hr></hr>
-        <p className="card-date">Add date</p>
+        <a href="">Edit Info</a>
+        <br/>
+        <a href="">Delete</a>
+        {/*  */}
       </div>
     </div>
   );

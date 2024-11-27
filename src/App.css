@@ -40,7 +40,7 @@ html {
 }
 
 main {
-  padding-top: 4em;
+  padding: 4em 0;
 }
 
 .block-ellipsis {

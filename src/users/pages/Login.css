@@ -9,4 +9,11 @@ form {
   border-radius: 12px;
 }
 
+.form-btn{
+  background-color: #ad893f;
+  border-radius: 6px;
+  color: #010100;
+  margin-bottom: 12px;
+}
+
 

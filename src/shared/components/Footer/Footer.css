@@ -2,10 +2,6 @@
 footer {
   background-color: #faf7f1;
   padding: 12px 50px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: space-between;
 }
