@@ -8,6 +8,8 @@
 
 .nav-links li {
     margin: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 .nav-links a {
@@ -27,5 +29,18 @@
 .nav-links a:hover,
 .nav-links a:active {
     background-color: #faf7f1;
-    color: #bb9445; 
+    color: #bb9445;
+}
+
+.nav-btn {
+    background-color: #ad893f;
+    border: none;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 5px;
+}
+
+.nav-btn:hover {
+    background-color: #faf7f1;
+    color: #bb9445;
 }

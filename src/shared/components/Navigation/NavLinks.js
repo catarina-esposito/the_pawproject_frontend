@@ -13,9 +13,12 @@ const NavLinks = (props) => {
                     Home
                 </NavLink> 
                 {auth.isLoggedIn && (
-                    <li>
-                        <button onClick={auth.logout}>LOGOUT</button>
-                    </li>
+                    <NavLink className="link" to="/pets/add" exact>
+                       Add Pet
+                    </NavLink>
+                )}
+                {auth.isLoggedIn && (
+                    <a className="nav-btn" onClick={auth.logout}>Log out</a>
                 )}
                 {!auth.isLoggedIn && (
                     <NavLink className="link" to="/login" exact>
