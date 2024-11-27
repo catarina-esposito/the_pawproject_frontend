@@ -1,6 +1,7 @@
 import React from "react";
 
 import Pet from "./Pet";
+import "../pages/Pets.css";
 
 const PetsList = (props) => {
     if (props.items.length === 0) {
