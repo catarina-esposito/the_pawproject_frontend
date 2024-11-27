@@ -8,23 +8,25 @@ import {
 } from "react-router-dom";
 
 import Pets from "./pets/pages/Pets";
+import AddPet from "./pets/pages/AddPet";
 import Navigation from "./shared/components/Navigation/Navigation";
 import Footer from "./shared/components/Footer/Footer";
 import Login from "./users/pages/Login";
 import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
+  // to test the state for user logged in or not edit "useState(true)" or "useState(false)"
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [petId, setPetId] = useState(false);
+  const [userId, setUserId] = useState(false);
 
   const login = useCallback((uid) => {
     setIsLoggedIn(true);
-    setPetId(uid);
+    setUserId(uid);
   }, []);
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-    setPetId(null);
+    setUserId(null);
   }, []);
 
   let routes;
@@ -34,6 +36,9 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <Pets />
+        </Route>
+        <Route path="/pets/add" exact>
+          <AddPet />
         </Route>
         <Redirect to="/" />
       </Switch>
@@ -55,7 +60,7 @@ const App = () => {
     <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn,
-        petId: petId,
+        userId: userId,
         login: login,
         logout: logout,
       }}
