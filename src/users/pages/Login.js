@@ -95,7 +95,7 @@ const Login = () => {
     };
     return (
         <div>
-            <form onSubmit={authSubmitHandler}>
+            <form className="login-form " onSubmit={authSubmitHandler}>
                 {!isLoginMode && (
                     <Input
                         element="input"
