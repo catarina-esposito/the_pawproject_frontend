@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { baseURL } from '../../shared/util/const';
-import "./AddPet.css";
+import "./Pets.css";
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -12,7 +12,7 @@ import {
 } from "../../shared/util/validator";
 import { useForm } from "../../shared/hooks/form-hooks";
 
-const NewPlace = () => {
+const AddPet = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -133,4 +133,4 @@ const NewPlace = () => {
   );
 };
 
-export default NewPlace;
+export default AddPet;

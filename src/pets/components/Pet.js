@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../shared/context/auth-context";
-
-
+import { NavLink} from "react-router-dom";
 import "./Pet.css";
 
 const Pet = ({ pet }) => {
@@ -19,15 +18,20 @@ const Pet = ({ pet }) => {
       </div>
       <div className="card-body">
         <p className="card-text">{pet.description}</p>
+        <hr></hr>
+        <p>Created by <em>{pet.creator}</em></p>
         {auth.isLoggedIn && (
           <div>
             <hr></hr>
-            <a href="">Edit Info</a>
+            <NavLink className="link" to={`/pets/${pet.key}`} exact>
+              Edit Pet
+            </NavLink>
             <br />
-            <a href="">Delete</a>
+            <NavLink className="link" to={`/pets/delete/${pet.key}`} exact>
+              Delete Pet
+            </NavLink>
           </div>
         )}
-        <p>Created by <em>{pet.creator}</em></p>
       </div>
     </div>
   );
