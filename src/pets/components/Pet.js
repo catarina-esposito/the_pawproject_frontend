@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
 
 
 import "./Pet.css";
 
 const Pet = ({ pet }) => {
+  const auth = useContext(AuthContext);
   return (
     <div className="card">
       <div className="card-head">
@@ -17,12 +19,15 @@ const Pet = ({ pet }) => {
       </div>
       <div className="card-body">
         <p className="card-text">{pet.description}</p>
-        {/* make this CRUD only available when user is logged in */}
-        <hr></hr>
-        <a href="">Edit Info</a>
-        <br/>
-        <a href="">Delete</a>
-        {/*  */}
+        {auth.isLoggedIn && (
+          <div>
+            <hr></hr>
+            <a href="">Edit Info</a>
+            <br />
+            <a href="">Delete</a>
+          </div>
+        )}
+        <p>Created by <em>{pet.creator}</em></p>
       </div>
     </div>
   );
