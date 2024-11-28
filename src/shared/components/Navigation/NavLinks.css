@@ -4,13 +4,28 @@
     padding: 0;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-links li {
     margin: 1rem;
     display: flex;
-    justify-content: space-between;
+  
 }
+
+.nav-left {
+    display: flex;
+    justify-content: flex-start; 
+}
+
+.nav-right {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px;
+}
+
 
 .nav-links a {
     text-decoration: none;

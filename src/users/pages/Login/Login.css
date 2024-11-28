@@ -1,0 +1,53 @@
+
+.login-form {
+  width: 90%;
+  max-width: 25rem;
+  margin: 7rem auto;
+  text-align: center;
+  border: 3px solid #b8c7e5;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+}
+
+.form-btn{
+  background-color: #ad893f;
+  border: 3px solid #b8c7e5;
+  border-radius: 6px;
+  color: #010100;
+  margin-bottom: 12px;
+}
+.switch-container {
+  margin-top: 20px;  
+  display: flex;
+  justify-content: center;
+}
+
+.switch-container button {
+  font-size: 16px;
+  background-color: #ad893f;
+  padding: 10px 20px;
+  border: 3px solid #b8c7e5;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, border 0.3s;
+}
+
+.switch-container button:hover {
+  background-color: #ad893f; 
+  border-color:  #b8c7e5; 
+}
+
+.switch-container button:disabled {
+  background-color: #ccc; 
+  border-color: #aaa;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+
+

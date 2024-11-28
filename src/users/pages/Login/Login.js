@@ -1,21 +1,22 @@
 import "./Login.css";
-import { baseURL } from '../../shared/util/const';
+import { baseURL } from '../../../shared/util/const';
 
 import React, { useState, useContext } from "react";
-
-import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useHistory } from "react-router-dom";
+import { useHttpClient } from "../../../shared/hooks/http-hook";
 import {
     VALIDATOR_EMAIL,
     VALIDATOR_MINLENGTH,
     VALIDATOR_REQUIRE,
-} from "../../shared/util/validator";
-import Input from "../../shared/components/FormElements/Input";
-import { useForm } from "../../shared/hooks/form-hooks";
-import { MainContext } from "../../shared/context/MainContext";
+} from "../../../shared/util/validator";
+import Input from "../../../shared/components/FormElements/Input";
+import { useForm } from "../../../shared/hooks/form-hooks";
+import { MainContext } from "../../../shared/context/MainContext";
 
 
 const Login = () => {
     const auth = useContext(MainContext);
+    const history = useHistory();
 
     const [isLoginMode, setIsLoginMode] = useState(true);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -74,7 +75,10 @@ const Login = () => {
                     }
                 );
                 auth.login(responseData.user.id);
-            } catch (err) { }
+                history.push("/dashboard");
+            } catch (err) { 
+                console.error("Login failed:", err);
+            }
         } else {
             try {
                 const responseData = await sendRequest(
@@ -90,7 +94,10 @@ const Login = () => {
                     }
                 );
                 auth.login(responseData.user.id);
-            } catch (err) { }
+                history.push("/dashboard");
+            } catch (err) { 
+                console.error("Signup failed:", err);
+            }
         }
     };
     return (
@@ -129,6 +136,13 @@ const Login = () => {
                     {isLoginMode ? "LOGIN" : "SIGNUP"}
                 </button>
             </form>
+            <div className="switch-container">
+                <button className="switch-mode-btn" onClick={switchModeHandler}>
+                    {isLoginMode ? "Already a member? Sign in" : "Not a member? Sign up"}
+                </button>
+            {error && <p className="error-message">{error}</p>}
+            {isLoading && <p>Loading...</p>}
+            </div>
         </div>
     );
 };
