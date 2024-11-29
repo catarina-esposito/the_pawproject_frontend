@@ -1,6 +1,6 @@
 /* Nav style */
 nav {
-  background-color: #b8c7e5;
+  background-color: #cebc96;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
   border-radius: 0 0 5px 5px;
   display: flex;
@@ -12,4 +12,6 @@ nav {
 nav img {
   width: 80px;
   border-radius: 5px;
+  border-color: black;
+  border-radius: 25px;
 }
