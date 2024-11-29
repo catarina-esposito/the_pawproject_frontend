@@ -6,7 +6,7 @@ import { baseURL } from '../../shared/util/const';
 
 const Pets = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [loadedPets, setLoadedPets] = useState();
+    const [loadedPets, setLoadedPets] = useState([]);
 
     useEffect(() => {
         const fetchPets = async () => {
@@ -22,6 +22,8 @@ const Pets = () => {
 
     return (
         <div>
+            <h1>Available Pets</h1>
+            {error && <p className="error">{error}</p>}
             {!isLoading && loadedPets && <PetsList items={loadedPets} />} 
         </div>
 
