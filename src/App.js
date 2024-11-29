@@ -14,6 +14,7 @@ import UpdatePet from "./pets/pages/UpdatePet";
 import Navigation from "./shared/components/Navigation/Navigation";
 import Footer from "./shared/components/Footer/Footer";
 import Login from "./users/pages/Login/Login";
+import SignUp from "./users/SignUp";
 import { MainContext } from "./shared/context/MainContext";
 
 
@@ -60,6 +61,9 @@ const App = () => {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
         </Route>
       </Switch>
     );
