@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./NavLinks.css";
-import { AuthContext } from "../../context/auth-context";
+import { MainContext } from "../../context/MainContext";
 
 
 const NavLinks = (props) => {
-    const auth = useContext(AuthContext);
+    const auth = useContext(MainContext);
     return (
         <ul className="nav-links">
             <li>

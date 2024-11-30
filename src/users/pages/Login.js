@@ -11,11 +11,11 @@ import {
 } from "../../shared/util/validator";
 import Input from "../../shared/components/FormElements/Input";
 import { useForm } from "../../shared/hooks/form-hooks";
-import { AuthContext } from "../../shared/context/auth-context";
+import { MainContext } from "../../shared/context/MainContext";
 
 
 const Login = () => {
-    const auth = useContext(AuthContext);
+    const auth = useContext(MainContext);
 
     const [isLoginMode, setIsLoginMode] = useState(true);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();

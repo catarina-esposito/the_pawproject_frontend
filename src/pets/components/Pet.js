@@ -1,33 +1,34 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../shared/context/auth-context";
+import { MainContext } from "../../shared/context/MainContext";
 import { NavLink} from "react-router-dom";
 import "./Pet.css";
 
-const Pet = ({ pet }) => {
-  const auth = useContext(AuthContext);
+const Pet = (props) => {
+  const auth = useContext(MainContext);
   return (
     <div className="card">
       <div className="card-head">
-        <img className="card-img" src={pet.photoURL}></img>
+        <img className="card-img" src={props.photoURL}></img>
         <div className="card-info">
-          <p>{pet.name}</p>
-          <p>{pet.breed}</p>
-          <p>{pet.age} years old</p>
-          <p>{pet.adoptionStatus}</p>
+          <p>{props.name}</p>
+          <p>{props.breed}</p>
+          <p>{props.age} years old</p>
+          <p>{props.adoptionStatus}</p>
         </div>
       </div>
       <div className="card-body">
-        <p className="card-text">{pet.description}</p>
+        <p className="card-text">{props.description}</p>
         <hr></hr>
-        <p>Created by <em>{pet.creator}</em></p>
+        <p>Created by <em>{props.creator}</em></p>
+        
         {auth.isLoggedIn && (
           <div>
             <hr></hr>
-            <NavLink className="link" to={`/pets/${pet.key}`} exact>
+            <NavLink className="link" to={`/pets/${props.id}`} exact>
               Edit Pet
             </NavLink>
             <br />
-            <NavLink className="link" to={`/pets/delete/${pet.key}`} exact>
+            <NavLink className="link" to={`/pets/delete/${props.id}`} exact>
               Delete Pet
             </NavLink>
           </div>
