@@ -13,11 +13,11 @@ import UpdatePet from "./pets/pages/UpdatePet";
 import Navigation from "./shared/components/Navigation/Navigation";
 import Footer from "./shared/components/Footer/Footer";
 import Login from "./users/pages/Login";
-import { MainContext } from "./shared/context/MainContext";
+import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
   // to test the state for user logged in or not edit "useState(true)" or "useState(false)"
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userId, setUserId] = useState(false);
 
   const login = useCallback((uid) => {
@@ -64,7 +64,7 @@ const App = () => {
   }
 
   return (
-    <MainContext.Provider
+    <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn,
         userId: userId,
@@ -77,7 +77,7 @@ const App = () => {
         <main>{routes}</main>
         <Footer />
       </Router>
-    </MainContext.Provider>
+    </AuthContext.Provider>
   );
 };
 

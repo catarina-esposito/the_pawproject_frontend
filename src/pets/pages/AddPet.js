@@ -4,7 +4,7 @@ import { baseURL } from '../../shared/util/const';
 import "./Pets.css";
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { MainContext } from "../../shared/context/MainContext";
+import { AuthContext } from "../../shared/context/auth-context";
 import Input from "../../shared/components/FormElements/Input";
 import {
   VALIDATOR_MINLENGTH,
@@ -13,7 +13,7 @@ import {
 import { useForm } from "../../shared/hooks/form-hooks";
 
 const AddPet = () => {
-  const auth = useContext(MainContext);
+  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [formState, inputHandler] = useForm(
