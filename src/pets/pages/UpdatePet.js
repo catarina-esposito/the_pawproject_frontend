@@ -17,6 +17,7 @@ const UpdatePet = () => {
     const auth = useContext(AuthContext);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedPet, setLoadedPet] = useState();
+    const [file, setFile] = useState(); 
     const petId = useParams().petId;
 
     const [formState, inputHandler, setFormData] = useForm(
@@ -41,10 +42,7 @@ const UpdatePet = () => {
                 value: "",
                 isValid: false,
             },
-            photoURL: {
-                value: "",
-                isValid: false,
-            },
+
         },
         false
     );
@@ -78,10 +76,11 @@ const UpdatePet = () => {
                             value: responseData.pet.name,
                             isValid: true,
                         },
-                        photoURL: {
-                            value: responseData.pet.photoURL,
+                        image: {
+                            value: responseData.pet.photoURL, 
                             isValid: true,
-                        },
+                          },
+                      
                     },
                     true
                 );
@@ -94,28 +93,31 @@ const UpdatePet = () => {
 
     const petUpdateSubmitHandler = async (event) => {
         event.preventDefault();
+        const formData = new FormData();
+        formData.append("adoptionStatus", formState.inputs.adoptionStatus.value);
+        formData.append("age", formState.inputs.age.value);
+        formData.append("breed", formState.inputs.breed.value);
+        formData.append("description", formState.inputs.description.value);
+        formData.append("name", formState.inputs.name.value);
+        if (formState.inputs.image.value) {
+            formData.append("photo", formState.inputs.image.value);
         try {
             await sendRequest(
-                `${baseURL}/pets/${petId}`,
-                "PATCH",
-                JSON.stringify({
-                    adoptionStatus: formState.inputs.adoptionStatus.value,
-                    age: formState.inputs.age.value,
-                    breed: formState.inputs.breed.value,
-                    description: formState.inputs.description.value,
-                    name: formState.inputs.name.value,
-                    photoURL: formState.inputs.photoURL.value,
-                    creator: auth.userId,
-                }),
-                {
-                    "Content-Type": "application/json",
-                }
+              `${baseURL}/pets/${petId}`,
+              "PATCH",
+              formData,
+              {
+                Authorization: "Bearer " + auth.token, 
+              }
             );
-            
-        } catch (err) { 
-            console.error("Error fetching pet", err);
-        }
-    };
+          } catch (err) {
+            console.error("Error updating pet", err);
+          }
+        };
+      
+        const fileChangeHandler = (event) => {
+          setFile(event.target.files[0]); 
+        };
 
     return (
         <form className="add-form" onSubmit={petUpdateSubmitHandler}>
@@ -180,5 +182,6 @@ const UpdatePet = () => {
 
     );
 };
+}
 
 export default UpdatePet;

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useState} from "react";
+import { useHistory, useParams } from "react-router-dom";
 import { baseURL } from '../../shared/util/const';
 import "./Pets.css";
 
@@ -14,7 +14,9 @@ import { useForm } from "../../shared/hooks/form-hooks";
 
 const AddPet = () => {
   const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading,  sendRequest  } = useHttpClient();
+  const [loadedPet, setLoadedPet] = useState();
+  const petId = useParams().petId;
 
   const [formState, inputHandler] = useForm(
     {
@@ -38,8 +40,8 @@ const AddPet = () => {
         value: "",
         isValid: false,
       },
-      photoURL: {
-        value: "",
+      image: {
+        value: null,
         isValid: false,
       },
     },
@@ -60,7 +62,7 @@ const AddPet = () => {
           breed: formState.inputs.breed.value,
           description: formState.inputs.description.value,
           name: formState.inputs.name.value,
-          photoURL: formState.inputs.photoURL.value,
+          photoURL: formState.inputs.image.value,
           creator: auth.userId,
         }),
         {
@@ -118,12 +120,9 @@ const AddPet = () => {
         onInput={inputHandler}
       />
       <Input
-        id="photoURL"
-        element="input"
-        label="Photo URL"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid photoURL."
+        iid="image"
         onInput={inputHandler}
+        errorText="Please provide an image."
       />
       <button className="form-btn" type="submit">
         ADD PET
