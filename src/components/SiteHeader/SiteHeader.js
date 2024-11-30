@@ -103,7 +103,7 @@ export default function SiteHeader() {
                                 ) : (
                                     <div className='loginMenu'>
                                         <ButtonLink
-                                            to="/sign-up"
+                                            to="/signup"
                                             color="primary"
                                         >
                                             Sign Up
