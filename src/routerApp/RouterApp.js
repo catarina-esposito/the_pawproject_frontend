@@ -12,6 +12,8 @@ import {
   import Pet from "../pets/pages/Pet.js";
   import Footer from '../components/Footer/Footer.js';
   import SiteHeader from '../components/SiteHeader/SiteHeader.js';
+  import SignUp from '../users/pages/SignUp.js';
+
   
   const RouterApp = () => {
 
@@ -29,6 +31,11 @@ import {
               <Route path="/login" exact>
                 <Login />
               </Route>
+
+              {/* Sign Up Route */}
+              <Route path="/signup" exact>
+                <SignUp />
+              </Route>              
   
               <Route path="/users" exact>
                 <User/>
