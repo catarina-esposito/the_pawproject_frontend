@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #673ab73d;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,6 @@
 html, body, main {
   height: 100%;
   width: 100%;
-  background-color: #e5d6b8;
   color: #010100;
 }
 
@@ -44,18 +43,20 @@ main {
 }
 
 .block-ellipsis {
-  display: block;
   display: -webkit-box;
+  display: block;
   max-width: 100%;
-  height: 43px;
+  height: 100px;
   margin: 0 auto;
-  font-size: 14px;
-  line-height: 1;
+  font-size: 13px;
+  line-height: 1.5;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: justify;
 }
+
 
 @keyframes App-logo-spin {
   from {

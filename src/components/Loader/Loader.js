@@ -6,7 +6,6 @@ export default function Loader({ header }) {
             <div className='loaderWrapper'>
                 <div className='loader'></div>
             </div>
-            <div className='loaderHeader'>{header}</div>
         </div>
     );
 }

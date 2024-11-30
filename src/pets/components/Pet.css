@@ -16,7 +16,7 @@ h3{
 }
 
 .card-head {
-  background-color: #ad893f;
+  background-color: #faf7f1;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
@@ -31,9 +31,10 @@ h3{
   padding: 6px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  height: 450px;
+  height: 300px;
 }
 
 .card-text {
+  padding-top: 2em;
   margin-top: 0;
 }

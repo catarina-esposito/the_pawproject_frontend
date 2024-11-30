@@ -1,0 +1,9 @@
+.globalNotification.globalNotification {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    text-align: center;
+}
