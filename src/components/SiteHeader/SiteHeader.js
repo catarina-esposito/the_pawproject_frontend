@@ -95,6 +95,10 @@ export default function SiteHeader() {
                                         >
                                             Log Out
                                         </Button>
+
+                                        <ButtonLink to="/add-pet">
+                                           Add Pet
+                                        </ButtonLink>
                                     </span>
                                 ) : (
                                     <div className='loginMenu'>

@@ -1,135 +1,153 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { baseURL } from '../../shared/util/const';
-import "./Pets.css";
-
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import { AuthContext } from "../../shared/context/auth-context";
-import Input from "../../shared/components/FormElements/Input";
-import {
-  VALIDATOR_MINLENGTH,
-  VALIDATOR_REQUIRE,
-} from "../../shared/util/validator";
-import { useForm } from "../../shared/hooks/form-hooks";
+import { Container, Box, Button, Heading } from "react-bulma-components";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { useNotification } from "../../components/Notification/Notification";
+import Loader from "../../components/Loader/Loader";
+import { baseURL } from "../../shared/util/const";
+import TextField from "../../components/TextField/TextField";
 
 const AddPet = () => {
-  const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
-  const [formState, inputHandler] = useForm(
-    {
-      adoptionStatus: {
-        value: "",
-        isValid: false,
-      },
-      age: {
-        value: "",
-        isValid: false,
-      },
-      breed: {
-        value: "",
-        isValid: false,
-      },
-      description: {
-        value: "",
-        isValid: false,
-      },
-      name: {
-        value: "",
-        isValid: false,
-      },
-      photoURL: {
-        value: "",
-        isValid: false,
-      },
-    },
-    false
-  );
-
+  const [loading, setLoading] = useState(false);
+  const [notification, showNotification] = useNotification();
   const history = useHistory();
 
-  const placeSubmitHandler = async (event) => {
-    event.preventDefault();
-    try {
-      await sendRequest(
-        `${baseURL}/pets`,
-        "POST",
-        JSON.stringify({
-          adoptionStatus: formState.inputs.adoptionStatus.value,
-          age: formState.inputs.age.value,
-          breed: formState.inputs.breed.value,
-          description: formState.inputs.description.value,
-          name: formState.inputs.name.value,
-          photoURL: formState.inputs.photoURL.value,
-          creator: auth.userId,
-        }),
-        {
-          "Content-Type": "application/json",
-        }
-      );
-      history.push("/");
-    } catch (err) { }
+  const initialValues = {
+    name: "",
+    age: "",
+    description: "",
+    adoptionStatus: "Available",
+    photoURL: "",
+    breed: "",
   };
 
-  return (
-    <form className="add-form" onSubmit={placeSubmitHandler}>
-      <Input
-        id="name"
-        element="input"
-        type="text"
-        label="Name"
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter a valid name(at least 5 characters)."
-        onInput={inputHandler}
-      />
-      <Input
-        id="age"
-        element="input"
-        type="number"
-        label="Age"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid age."
-        onInput={inputHandler}
-      />
-      <Input
-        id="adoptionStatus"
-        element="input"
-        type="text"
-        label="Status"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter status."
-        onInput={inputHandler}
-      />   
-      <Input
-        id="breed"
-        element="input"
-        type="text"
-        label="Breed"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter breed type."
-        onInput={inputHandler}
-      />
-      <Input
-        id="description"
-        element="textarea"
-        label="Description"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid description."
-        onInput={inputHandler}
-      />
-      <Input
-        id="photoURL"
-        element="input"
-        label="Photo URL"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid photoURL."
-        onInput={inputHandler}
-      />
-      <button className="form-btn" type="submit">
-        ADD PET
-      </button>
-    </form>
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required"),
+    age: Yup.number()
+      .required("Age is required")
+      .min(0, "Age must be a positive number"),
+    description: Yup.string().required("Description is required"),
+    photoURL: Yup.string().required("Photo URL is required"),
+    breed: Yup.string().required("Breed URL is required"),
+    adoptionStatus: Yup.string()
+      .required("Status is required")
+      .oneOf(["Available", "Unavailable"], "Invalid status"),
+  });
 
+  const handleFormSubmit = async (values, { setSubmitting }) => {
+    try {
+      setLoading(true);
+      const token = JSON.parse(localStorage.getItem("token"));
+      if (!token) {
+        showNotification(false, "User is not authenticated");
+        setLoading(false);
+        return;
+      }
+
+      const response = await fetch(`${baseURL}/pets/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token.token}`,
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.ok) {
+        showNotification(true, "Pet added successfully");
+        history.push("/");
+      } else {
+        showNotification(false, "Failed to add pet");
+      }
+    } catch (err) {
+      console.error(err);
+      showNotification(false, "An error occurred while adding the pet");
+    } finally {
+      setLoading(false);
+      setSubmitting(false);
+    }
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <Container>
+      {notification}
+      <Box>
+        <Heading size={3}>Add New Pet</Heading>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleFormSubmit}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form>
+              <TextField
+                label="Photo UR"
+                name="photoURL"
+                value={"photoURL"}
+                disabled={false}
+              />
+              <TextField
+                label="Name"
+                name="name"
+                value={"name"}
+                disabled={false}
+              />
+              <TextField
+                label="Breed"
+                name="breed"
+                value={"breed"}
+                disabled={false}
+              />
+
+              <div className="field">
+                <label className="label">Age</label>
+                <Field className="input" name="age" type="number" />
+                {errors.age && touched.age && (
+                  <p className="help is-danger">{errors.age}</p>
+                )}
+              </div>
+
+              <div className="field">
+                <label className="label">Description</label>
+                <Field className="textarea" as="textarea" name="description" />
+                {errors.description && touched.description && (
+                  <p className="help is-danger">{errors.description}</p>
+                )}
+              </div>
+
+              <div className="field">
+                <label className="label">Adoption Status</label>
+                <Field as="select" name="adoptionStatus" className="input">
+                  <option value="Available">Available</option>
+                  <option value="Unavailable">Unavailable</option>
+                </Field>
+                {errors.adoptionStatus && touched.adoptionStatus && (
+                  <p className="help is-danger">{errors.adoptionStatus}</p>
+                )}
+              </div>
+
+              <div className="buttons">
+                <Button type="submit" color="success" disabled={isSubmitting}>
+                  Add Pet
+                </Button>
+                <Button
+                  type="button"
+                  color="warning"
+                  onClick={() => history.push("/")}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Container>
   );
 };
 
