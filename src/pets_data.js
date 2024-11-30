@@ -27,7 +27,7 @@ const pets = [
         "breed": "Poodle",
         "description": "Tassle is a playful, intelligent 1-year-old Poodle with a cream-colored coat that bounces as she moves. Full of charm and curiosity, Tassle loves exploring new places and showing off her tricks. With a loyal and affectionate personality, Tassle is the perfect companion for both fun adventures and cozy cuddles.",
         "name": "Tassle",
-        "photoURL": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dpoodle%2Bskirt&psig=AOvVaw2wzxnWMSWdI2KohWkCLHyH&ust=1733018946297000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCLCyz-n8gooDFQAAAAAdAAAAABAE",
+        "photoURL": "https://consumer-cms.petfinder.com/sites/default/files/images/content/Miniature%20Poodle%20%201_0.jpg",
         "creator": "user1"
     },
     {
@@ -35,9 +35,9 @@ const pets = [
         "adoptionStatus": "Available",
         "age": 5,
         "breed": "Siberian Husky",
-        "description": "Snow is a majestic 5-year-old white Siberian Husky with piercing blue eyes and a spirited personality. Energetic and adventurous, Snow loves long runs and exploring the outdoors. Loyal and intelligent, Snow thrives on companionship and brings warmth and excitement to every moment.",
-        "name": "Snow",
-        "photoURL": "https://www.petexpress.com.ph/cdn/shop/articles/Adorable_Pomeranian.png?v=1710229124",
+        "description": "Sandy is a majestic 5-year-old brown and white Siberian Husky with a spirited personality. Energetic and adventurous, Sandy loves long runs and exploring the outdoors. Loyal and intelligent, Sandy thrives on companionship and brings warmth and excitement to every moment.",
+        "name": "Sandy",
+        "photoURL": "https://images.saymedia-content.com/.image/c_limit%2Ccs_srgb%2Cq_auto:eco%2Cw_700/MTk2Njc0ODUxNzAyODQzMTk4/colors-of-siberian-huskies.webp",
         "creator": "user1"
     }
 ];
