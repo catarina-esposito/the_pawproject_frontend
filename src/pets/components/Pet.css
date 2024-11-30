@@ -12,11 +12,11 @@ h3{
   border-top: none;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
   width: 300px;
-
+  color: #000;
 }
 
 .card-head {
-  background-color: #ad893f;
+  background-color: #faf7f1;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
@@ -31,9 +31,17 @@ h3{
   padding: 6px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  height: 450px;
+  height: 300px;
 }
 
 .card-text {
+  padding-top: 2em;
   margin-top: 0;
+  color: #000;
+}
+
+.tag-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
 }

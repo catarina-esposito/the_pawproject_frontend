@@ -1,0 +1,72 @@
+
+.burgerMenuContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 88px;
+    height: 72px;
+    font-style: normal;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 120%;
+    background-color: #000;
+    max-width: 100%;
+    padding: 0 1em;
+}
+
+.subBurgerMenu {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 25px;
+}
+
+.subBurgerMenu a:hover {
+    background-color: #0a011ad4;
+}
+
+@media screen and (max-width: 768px) {
+    .subBurgerMenu {
+        flex-direction: column;
+        font-weight: 400;
+    }
+}
+
+.loginMenu {
+    width: 200px;
+    display: flex;
+    gap: 10px;
+}
+
+
+.logoutMenu {
+    width: 185px;
+    gap: 2em;
+    display: flex;
+}
+
+.accountIconButton {
+    border: none;
+}
+
+.accountIconButton > :hover {
+    color: #8cc153 !important;
+}
+
+.accountIconButton > :active {
+    color: #8cc153 !important;
+}
+
+
+.burgerLogoImage:hover {
+    background-color: #673ab73d;
+}
+
+
+.burgerLogoImageWrap {
+    padding: 10px;
+    width: 120px;
+    padding: 0;
+    overflow: hidden;
+}
