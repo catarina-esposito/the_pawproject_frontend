@@ -85,8 +85,10 @@ const UpdatePet = () => {
                     },
                     true
                 );
-            } catch (err) { }
-        };
+            } catch (err) { 
+                console.error("Error fetching pet", err);
+            }
+        }; 
         fetchPet();
     }, [sendRequest, petId, setFormData]);
 
@@ -110,7 +112,9 @@ const UpdatePet = () => {
                 }
             );
             
-        } catch (err) { }
+        } catch (err) { 
+            console.error("Error fetching pet", err);
+        }
     };
 
     return (
@@ -171,6 +175,8 @@ const UpdatePet = () => {
                 UPDATE PET
             </button>
         </form>
+        
+        
 
     );
 };

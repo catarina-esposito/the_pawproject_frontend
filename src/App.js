@@ -6,7 +6,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-
+import SignUp from "./users/pages/SignUp";
 import Pets from "./pets/pages/Pets";
 import AddPet from "./pets/pages/AddPet";
 import UpdatePet from "./pets/pages/UpdatePet";
@@ -59,9 +59,14 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/signup"> 
+          <SignUp />
+        </Route>
       </Switch>
     );
   }
+  
+      
 
   return (
     <AuthContext.Provider

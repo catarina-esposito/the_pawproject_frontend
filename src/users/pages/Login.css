@@ -16,4 +16,31 @@
   margin-bottom: 12px;
 }
 
+.switch-container {
+  margin-top: 1rem;
+  text-align: center; 
+}
+
+.switch-container button {
+  background: none;
+  border: none;
+  color: #510077; 
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 1rem; 
+}
+
+.switch-container button:hover {
+  color: #7200a1; 
+}
+
+.switch-container p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.switch-mode-btn {
+  margin-top: 0.5rem; 
+}
 
