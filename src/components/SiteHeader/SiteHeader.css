@@ -41,7 +41,7 @@
 
 
 .logoutMenu {
-    width: 185px;
+    width: 45%;
     gap: 2em;
     display: flex;
 }

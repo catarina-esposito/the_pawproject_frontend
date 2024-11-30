@@ -172,23 +172,18 @@ const Pet = () => {
                             <Form>
                                 <Heading size={4}>Edit Pet</Heading>
                                 <TextField
-                                        label="Photo UR"
-                                        name="photoURL"
-                                        value={'photoURL'}
-                                        disabled={false}
-                                    />
-
-                                <div className="field">
-                                    <label className="label">Name</label>
-                                    <div className="control">
-                                        <Field className="input" name="name" />
-                                        {errors.name && touched.name && (
-                                            <p className="help is-danger">{errors.name}</p>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="field">
+                                    label="Photo UR"
+                                    name="photoURL"
+                                    value={'photoURL'}
+                                    disabled={false}
+                                />
+                                <TextField
+                                    label="Name"
+                                    name="name"
+                                    value={'name'}
+                                    disabled={false}
+                                />
+                                 <div className="field">
                                     <label className="label">Age</label>
                                     <div className="control">
                                         <Field className="input" name="age" type="number" />
@@ -196,8 +191,7 @@ const Pet = () => {
                                             <p className="help is-danger">{errors.age}</p>
                                         )}
                                     </div>
-                                </div>
-
+                                </div>                               
                                 <div className="field">
                                     <label className="label">Description</label>
                                     <div className="control">
