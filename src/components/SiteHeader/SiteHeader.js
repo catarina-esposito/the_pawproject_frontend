@@ -105,7 +105,7 @@ export default function SiteHeader() {
                                             Sign Up
                                         </ButtonLink>
 
-                                        <ButtonLink to="login">
+                                        <ButtonLink to="/login">
                                             Log In
                                         </ButtonLink>
                                     </div>

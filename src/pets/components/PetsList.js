@@ -1,6 +1,6 @@
 import React from "react";
 
-import Pet from "./Pet";
+import PetCard from "./PetCard";
 import "../pages/Pets.css";
 import {useLoadEntity} from '../../shared/hooks/http-request-hook';
 import { baseURL } from '../../shared/util/const';
@@ -21,7 +21,7 @@ const PetsList = () => {
 
     return (
         <div className="card-group">
-             {data?.pets.map(pet => <Pet pet={pet}/>)}
+             {data?.pets.map(pet => <PetCard pet={pet}/>)}
         </div>
     );
 };

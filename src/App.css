@@ -39,14 +39,15 @@ html {
 }
 
 main {
-  padding: 4em 0;
+  padding-top: 6em;
+  min-height: 950px;
 }
 
 .block-ellipsis {
   display: -webkit-box;
   display: block;
   max-width: 100%;
-  height: 100px;
+  height: 200px;
   margin: 0 auto;
   font-size: 13px;
   line-height: 1.5;

@@ -9,6 +9,8 @@ import {
   import Login from '../users/pages/LoginForm.js';
   import React from "react";
   import User from '../users/User.js';
+  import Pet from "../pets/pages/Pet.js";
+  import Footer from '../components/Footer/Footer.js';
   import SiteHeader from '../components/SiteHeader/SiteHeader.js';
   
   const RouterApp = () => {
@@ -31,11 +33,16 @@ import {
               <Route path="/users" exact>
                 <User/>
               </Route>
+
+              <Route path="/pet/:id" exact>
+                <Pet/>
+              </Route>
   
               {/* Redirect to Home */}
               <Redirect to="/" />
             </Switch>
           </main>
+          <Footer/>
         </Router>
     );
   };
