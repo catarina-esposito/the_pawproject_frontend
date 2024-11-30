@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../shared/context/auth-context";
 import { NavLink} from "react-router-dom";
 import "./Pet.css";
+import DeletePet from "../pages/DeletePet";
 
 const Pet = ({ pet }) => {
   const auth = useContext(AuthContext);

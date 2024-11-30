@@ -17,6 +17,15 @@ const NavLinks = (props) => {
                        Add Pet
                     </NavLink>
                 )}
+                
+                {!auth.isLoggedIn && (
+                     <li>
+                        <NavLink className="link" to="/signup" exact>
+                            Sign Up
+                        </NavLink>
+                    </li>
+                )}
+
                 {auth.isLoggedIn && (
                     <a className="nav-btn" onClick={auth.logout}>Log out</a>
                 )}
@@ -25,6 +34,7 @@ const NavLinks = (props) => {
                         Log in
                     </NavLink>
                 )}
+                
             </li>
         </ul>
     );
