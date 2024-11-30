@@ -95,10 +95,10 @@ export default function SiteHeader() {
                                         >
                                             Log Out
                                         </Button>
-
+                                        {currentUser?.role === 'admin' ?
                                         <ButtonLink to="/add-pet">
                                            Add Pet
-                                        </ButtonLink>
+                                        </ButtonLink> : <></>}
                                     </span>
                                 ) : (
                                     <div className='loginMenu'>
