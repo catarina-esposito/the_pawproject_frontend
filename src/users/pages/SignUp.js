@@ -8,7 +8,7 @@ import {
     VALIDATOR_MINLENGTH,
     VALIDATOR_REQUIRE,
 } from "../../shared/util/validator";
-import Input from "../../shared/components/FormElements/Input";
+import Input from "../../components/FormElements/Input";
 import { useForm } from "../../shared/hooks/form-hooks";
 import { AuthContext } from "../../shared/context/auth-context";
 
