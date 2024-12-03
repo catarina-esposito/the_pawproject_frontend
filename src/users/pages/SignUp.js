@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { Block, Button, Card, Content, Heading } from 'react-bulma-components';
+import { useHistory, Link } from "react-router-dom";
 import { baseURL } from '../../shared/util/const';
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -10,19 +11,22 @@ import {
 } from "../../shared/util/validator";
 import Input from "../../components/FormElements/Input";
 import { useForm } from "../../shared/hooks/form-hooks";
-import { AuthContext } from "../../shared/context/auth-context";
+import './SignUp.css';
 
 
 
 const SignUp = () => {
-  const auth = useContext(AuthContext);
   const history = useHistory(); 
 
   const { sendRequest } = useHttpClient(); 
 
   const [formState, inputHandler] = useForm(
     {
-      name: {
+      firstName: {
+        value: "",
+        isValid: false,
+      },
+      lastName: {
         value: "",
         isValid: false,
       },
@@ -42,11 +46,12 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const responseData = await sendRequest(
+      const res = await sendRequest(
         `${baseURL}/users/signup`,
         "POST",
         JSON.stringify({
-          name: formState.inputs.name.value,
+          firstName: formState.inputs.firstName.value,
+          lastName: formState.inputs.lastName.value,
           email: formState.inputs.email.value,
           password: formState.inputs.password.value,
         }),
@@ -54,7 +59,6 @@ const SignUp = () => {
           "Content-Type": "application/json",
         }
       );
-      auth.login(responseData.user.id);
       history.push("/login"); 
     } catch (error) {
       console.error(error);
@@ -63,46 +67,66 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <Input
-          element="input"
-          id="name"
-          type="text"
-          label="Your Name"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a name."
-          onInput={inputHandler}
-        />
-        <Input
-          element="input"
-          id="email"
-          type="email"
-          label="E-Mail"
-          validators={[VALIDATOR_EMAIL()]}
-          errorText="Please enter a valid email address."
-          onInput={inputHandler}
+    <Card className='singInCard'>
+      <Card.Content className="form-card-content">
+        <Block>
+            <Heading>Create an account</Heading>
+        </Block>
 
-        />
-        <Input
-          element="input"
-          id="password"
-          type="password"
-          label="Password"
-          validators={[VALIDATOR_MINLENGTH(6)]}
-          errorText="Please enter a valid password, at least 6 characters."
-          onInput={inputHandler}
-        />
-        <button className="form-btn" type="submit" disabled={!formState.isValid}>
-          SIGN UP
-        </button>
-      </form>
-      <div className="switch-container">
-        <button className="switch-mode-btn" onClick={() => history.push("/login")}>
-          Already a member? Sign in
-        </button>
-      </div>
-    </div>
+        <Content>
+          <form onSubmit={handleSubmit}>
+            <Input
+              element="input"
+              id="firstName"
+              type="text"
+              label="Your Name"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a name."
+              onInput={inputHandler}
+            />
+            <Input
+              element="input"
+              id="lastName"
+              type="text"
+              label="Last Name"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a last name."
+              onInput={inputHandler}
+            />
+            <Input
+              element="input"
+              id="email"
+              type="email"
+              label="E-Mail"
+              validators={[VALIDATOR_EMAIL()]}
+              errorText="Please enter a valid email address."
+              onInput={inputHandler}
+
+            />
+            <Input
+              element="input"
+              id="password"
+              type="password"
+              label="Password"
+              validators={[VALIDATOR_MINLENGTH(6)]}
+              errorText="Please enter a valid password, at least 6 characters."
+              onInput={inputHandler}
+            />
+            <Button.Group align="right" pb={3}>
+                <Button
+                    color="primary"
+                    className="btnSignUp"
+                    type="submit"
+                    disabled={!formState.isValid}
+                >SIGN UP</Button>
+            </Button.Group>
+          </form>
+          <Link to="/login">
+              Have an account already?
+          </Link>
+      </Content>
+    </Card.Content>
+  </Card>
   );
 };
 
