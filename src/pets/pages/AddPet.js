@@ -103,14 +103,13 @@ const AddPet = () => {
                 value={"breed"}
                 disabled={false}
               />
-
-              <div className="field">
-                <label className="label">Age</label>
-                <Field className="input" name="age" type="number" />
-                {errors.age && touched.age && (
-                  <p className="help is-danger">{errors.age}</p>
-                )}
-              </div>
+              <TextField
+                label="Age"
+                name="age"
+                value={"age"}
+                type="number"
+                disabled={false}
+              />
 
               <div className="field">
                 <label className="label">Description</label>
