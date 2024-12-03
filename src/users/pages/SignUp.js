@@ -1,107 +1,126 @@
-import React, { useState, useContext } from "react";
+import { Formik, Form, ErrorMessage } from 'formik';
+import { Block, Button, Card, Columns, Content, Heading } from 'react-bulma-components';
+import * as yup from 'yup';
 import { useHistory } from "react-router-dom";
+import TextField from '../../components/TextField/TextField';
+import { useNotification } from '../../components/Notification/Notification';
+import CustomButton from '../../components/CustomButton/CustomButton';
 import { baseURL } from '../../shared/util/const';
 
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import {
-    VALIDATOR_EMAIL,
-    VALIDATOR_MINLENGTH,
-    VALIDATOR_REQUIRE,
-} from "../../shared/util/validator";
-import Input from "../../components/FormElements/Input";
-import { useForm } from "../../shared/hooks/form-hooks";
-import { AuthContext } from "../../shared/context/auth-context";
-
-
+const SIGN_UP_SCHEMA = yup.object().shape({
+  name: yup.string().required('Name is required'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required')
+});
 
 const SignUp = () => {
-  const auth = useContext(AuthContext);
-  const history = useHistory(); 
+  const history = useHistory();
+  const [notification, showNotification] = useNotification();
 
-  const { sendRequest } = useHttpClient(); 
+  const initialFormValues = {
+    name: '',
+    email: '',
+    password: ''
+  };
 
-  const [formState, inputHandler] = useForm(
-    {
-      name: {
-        value: "",
-        isValid: false,
-      },
-      email: {
-        value: "",
-        isValid: false,
-      },
-      password: {
-        value: "",
-        isValid: false,
-      },
-    },
-    false
-  );
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSignUp = async (data, { setSubmitting, setFieldError }) => {
+    setSubmitting(true); // Disable submit button
     try {
-      const responseData = await sendRequest(
-        `${baseURL}/users/signup`,
-        "POST",
-        JSON.stringify({
-          name: formState.inputs.name.value,
-          email: formState.inputs.email.value,
-          password: formState.inputs.password.value,
-        }),
-        {
-          "Content-Type": "application/json",
+      const res = await fetch(`${baseURL}/users/signup`, {
+        body: JSON.stringify(data),
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
         }
+      });
+
+      const userData = await res.json();
+      if (userData && res.ok) {
+        showNotification(true, "Account created successfully!");
+        history.push(`/login`); // Redirect to login page after successful sign-up
+        return;
+      }
+      showNotification(false, "Failed to create an account. Please try again.");
+    } catch (err) {
+      setFieldError(
+        'email',
+        "This email is already in use. Please use another email."
       );
-      auth.login(responseData.user.id);
-      history.push("/login"); 
-    } catch (error) {
-      console.error(error);
-      alert("Signup failed. Please try again.");
     }
+    setSubmitting(false); // Enable submit button
   };
 
   return (
     <div>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <Input
-          element="input"
-          id="name"
-          type="text"
-          label="Your Name"
-          validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a name."
-          onInput={inputHandler}
-        />
-        <Input
-          element="input"
-          id="email"
-          type="email"
-          label="E-Mail"
-          validators={[VALIDATOR_EMAIL()]}
-          errorText="Please enter a valid email address."
-          onInput={inputHandler}
-
-        />
-        <Input
-          element="input"
-          id="password"
-          type="password"
-          label="Password"
-          validators={[VALIDATOR_MINLENGTH(6)]}
-          errorText="Please enter a valid password, at least 6 characters."
-          onInput={inputHandler}
-        />
-        <button className="form-btn" type="submit" disabled={!formState.isValid}>
-          SIGN UP
-        </button>
-      </form>
-      <div className="switch-container">
-        <button className="switch-mode-btn" onClick={() => history.push("/login")}>
-          Already a member? Sign in
-        </button>
-      </div>
+      {notification}
+      <Card style={{ width: "550px", margin: "10em auto" }}>
+        <Card.Content>
+          <Block>
+            <Heading>Sign Up</Heading>
+          </Block>
+          <Content>
+            <Formik
+              initialValues={initialFormValues}
+              onSubmit={handleSignUp}
+              validationSchema={SIGN_UP_SCHEMA}
+            >
+              {({ isSubmitting }) => {
+                return (
+                  <Form>
+                    <TextField
+                      label="Name"
+                      name="name"
+                      placeholder="John Doe"
+                    />
+                    <TextField
+                      label="Email"
+                      name="email"
+                      placeholder="john.doe@jwa.ca"
+                    />
+                    <TextField
+                      label="Password"
+                      name="password"
+                      placeholder="Password"
+                      type="password"
+                    />
+                    <Columns>
+                      <Columns.Column>
+                      </Columns.Column>
+                      <Columns.Column>
+                        <Button.Group align="right">
+                          <ErrorMessage name="authentication" />
+                          <CustomButton
+                            disabled={isSubmitting}
+                            buttonLabel="Sign Up"
+                          />
+                        </Button.Group>
+                      </Columns.Column>
+                    </Columns>
+                    <Block
+                      className={`is-flex is-justify-content-center`}
+                    >
+                      <p>
+                        Already a member?{' '}
+                        <Button
+                          color="link"
+                          onClick={() => history.push('/login')}
+                        >
+                          Log In
+                        </Button>
+                      </p>
+                    </Block>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </Content>
+        </Card.Content>
+      </Card>
     </div>
   );
 };
