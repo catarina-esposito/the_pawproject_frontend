@@ -11,8 +11,8 @@ export default function ImageUpload({ image, onChange, disabled }) {
             }} disabled={disabled} />
             <Image
                 className="uploadImage"
-                width={120}
-                height={120}
+                width={160}
+                height={160}
                 src={image || '/drop_gallery.svg'}
                 alt="loading"
                 onClick={() => inputRef.current.click()}

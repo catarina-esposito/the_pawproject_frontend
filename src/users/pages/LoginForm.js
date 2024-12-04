@@ -1,7 +1,7 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Block, Button, Card, Columns, Content , Heading} from 'react-bulma-components';
 import * as yup from 'yup';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import TextField from '../../components/TextField/TextField';
 import { useMainContext } from '../../shared/context/MainContext';
 import CustomButton from '../../components/CustomButton/CustomButton';
@@ -98,15 +98,9 @@ const Login = () => {
                                     <Block
                                         className={`is-flex is-justify-content-center`}
                                     >
-                                     <p>
-                                            Not a member?{' '}
-                                            <Button
-                                                color="link"
-                                                onClick={() => history.push('/signup')}
-                                            >
-                                                Create an account
-                                            </Button>
-                                        </p>
+                                    <Link to='/signup'>
+                                        Not a member?{' '}
+                                    </Link>
                                     </Block>
                                 </Form>
                             );

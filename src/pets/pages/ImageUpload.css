@@ -1,5 +1,6 @@
 .imageWrap {
     display: flex;
+    padding-bottom: 1em;
 }
 
 .uploadFileInput {
@@ -17,6 +18,11 @@
     border-radius: 20px;
     margin: 0 auto;
     cursor: pointer;
+}
+
+.uploadImage img {
+    width: 160px;
+    height: 160px;
 }
 
 .uploadImage:hover {

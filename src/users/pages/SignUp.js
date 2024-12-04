@@ -1,14 +1,15 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Block, Button, Card, Columns, Content, Heading } from 'react-bulma-components';
 import * as yup from 'yup';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import TextField from '../../components/TextField/TextField';
 import { useNotification } from '../../components/Notification/Notification';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { baseURL } from '../../shared/util/const';
 
 const SIGN_UP_SCHEMA = yup.object().shape({
-  name: yup.string().required('Name is required'),
+  firstName: yup.string().required('Name is required'),
+  lastName: yup.string().required('Last name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   password: yup
     .string()
@@ -28,7 +29,8 @@ const SignUp = () => {
   const [notification, showNotification] = useNotification();
 
   const initialFormValues = {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     phoneNumber: ''
@@ -82,8 +84,13 @@ const SignUp = () => {
                   <Form>
                     <TextField
                       label="Name"
-                      name="name"
-                      placeholder="John Doe"
+                      name="firstName"
+                      placeholder="John"
+                    />
+                     <TextField
+                      label="Last name"
+                      name="lastName"
+                      placeholder="Doe"
                     />
                     <TextField
                       label="Email"
@@ -103,8 +110,6 @@ const SignUp = () => {
                     />
                     <Columns>
                       <Columns.Column>
-                      </Columns.Column>
-                      <Columns.Column>
                         <Button.Group align="right">
                           <ErrorMessage name="authentication" />
                           <CustomButton
@@ -117,15 +122,9 @@ const SignUp = () => {
                     <Block
                       className={`is-flex is-justify-content-center`}
                     >
-                      <p>
+                      <Link to='/login'>
                         Already a member?{' '}
-                        <Button
-                          color="link"
-                          onClick={() => history.push('/login')}
-                        >
-                          Log In
-                        </Button>
-                      </p>
+                        </Link>
                     </Block>
                   </Form>
                 );
