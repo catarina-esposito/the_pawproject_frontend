@@ -13,8 +13,15 @@ const SIGN_UP_SCHEMA = yup.object().shape({
   password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
-    .required('Password is required')
+    .required('Password is required'),
+  phoneNumber: yup
+    .string()
+    .matches(/^[0-9]+$/, "Phone number must only contain numbers")
+    .min(10, 'Phone number must be at least 10 digits')
+    .max(15, 'Phone number cannot exceed 15 digits')
+    .required('Phone number is required'),
 });
+
 
 const SignUp = () => {
   const history = useHistory();
@@ -23,7 +30,8 @@ const SignUp = () => {
   const initialFormValues = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    phoneNumber: ''
   };
 
   const handleSignUp = async (data, { setSubmitting, setFieldError }) => {
@@ -87,6 +95,11 @@ const SignUp = () => {
                       name="password"
                       placeholder="Password"
                       type="password"
+                    />
+                    <TextField
+                      label="Phone Number"
+                      name="phoneNumber"
+                      placeholder="1234567890"
                     />
                     <Columns>
                       <Columns.Column>
