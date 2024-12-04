@@ -7,17 +7,6 @@ import { useNotification } from '../../components/Notification/Notification';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { baseURL } from '../../shared/util/const';
 
-import { useHttpClient } from "../../shared/hooks/http-hook";
-import {
-    VALIDATOR_EMAIL,
-    VALIDATOR_MINLENGTH,
-    VALIDATOR_REQUIRE,
-} from "../../shared/util/validator";
-import Input from "../../components/FormElements/Input";
-import { useForm } from "../../shared/hooks/form-hooks";
-import './SignUp.css';
-
-
 const SIGN_UP_SCHEMA = yup.object().shape({
   name: yup.string().required('Name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -28,31 +17,6 @@ const SIGN_UP_SCHEMA = yup.object().shape({
 });
 
 const SignUp = () => {
-  const history = useHistory(); 
-
-  const { sendRequest } = useHttpClient(); 
-
-  const [formState, inputHandler] = useForm(
-    {
-      firstName: {
-        value: "",
-        isValid: false,
-      },
-      lastName: {
-        value: "",
-        isValid: false,
-      },
-      email: {
-        value: "",
-        isValid: false,
-      },
-      password: {
-        value: "",
-        isValid: false,
-      },
-    },
-    false
-  );
   const history = useHistory();
   const [notification, showNotification] = useNotification();
 
@@ -162,4 +126,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
