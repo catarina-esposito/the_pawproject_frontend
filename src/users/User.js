@@ -92,6 +92,7 @@ const UserInfoForm = () => {
                   firstName: currentUser.firstName || '',
                   lastName: currentUser.lastName || '',
                   phoneNumber: currentUser.phoneNumber || '',
+                  email: currentUser.email || '',
                   password: '',
                   confirmPassword: '',
                 }}
@@ -106,6 +107,11 @@ const UserInfoForm = () => {
                       label="Phone Number"
                       name="phoneNumber"
                       placeholder="1234567890"
+                    />
+                     <TextField
+                      label="Email"
+                      name="email"
+                      disabled={true}
                     />
                     <CheckBox
                       checked={changePasswordCheck}
