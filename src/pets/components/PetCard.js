@@ -2,6 +2,7 @@ import React from "react";
 import "./Pet.css";
 import { Tag, Heading } from 'react-bulma-components';
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { createImageUrl } from '../../shared/util/const';
 
 const PetCard = ({ pet }) => {
 
@@ -9,7 +10,7 @@ const PetCard = ({ pet }) => {
     <div className="card">
       <Link to={`/pet/${pet._id}`}>
         <div className="card-head">
-          <img className="card-img" alt="pet" src={pet.photoURL}></img>
+          <img className="card-img" alt="pet" src={createImageUrl(pet.photoURL)}></img>
           <div className="card-info">
             <Heading renderAs='h2' color='dark'>{pet.name}</Heading>
             <div className="tag-wrapper">

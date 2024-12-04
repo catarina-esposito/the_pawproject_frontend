@@ -19,6 +19,7 @@ const fetcher = (url, params) =>
 export const MainProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [isLoading, setIsLoading] = useState(true);
+    const [darkMode, setDarkMode] = useState(false);
 
     const handleLogout = () => {
         setIsLoading(false);
@@ -31,6 +32,15 @@ export const MainProvider = ({ children }) => {
             setCurrentUser(user);
         }
     } 
+
+    const toggleDarkMode = () => {
+        setDarkMode((prev) => !prev);
+    };
+
+    useEffect(() => {
+        const theme = darkMode ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", theme);
+    }, [darkMode]);
 
     useEffect(() => {
         let token = JSON.parse(localStorage.getItem("token"))
@@ -68,7 +78,9 @@ export const MainProvider = ({ children }) => {
                 isAuthenticated: currentUser !== undefined,
                 updateCurrentUser: (currentUser) => {
                     setCurrentUser(currentUser);
-                }
+                },
+                darkMode,
+                toggleDarkMode,
             }}
         >
             {children}

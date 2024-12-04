@@ -58,6 +58,7 @@ const Input = (props) => {
         onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
+        className="input false inputFormValue"
       />
     ) : (
       <textarea
@@ -75,7 +76,7 @@ const Input = (props) => {
         !inputState.isValid && inputState.isTouched && "form-control--invalid"
       }`}
     >
-      <label htmlFor={props.id}>{props.label}</label>
+      <label className="label formLabel" htmlFor={props.id}>{props.label}</label>
       {element}
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </div>

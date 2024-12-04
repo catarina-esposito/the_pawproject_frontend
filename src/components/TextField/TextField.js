@@ -36,7 +36,7 @@ const TextField = (props) => {
                     error: meta.error
                 })
             ) : (
-                <div className="error-message">
+                <div className="help error-message is-danger">
                     <ErrorMessage name={field.name} />
                 </div>
             )}

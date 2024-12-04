@@ -7,6 +7,8 @@ import { useNotification } from "../../components/Notification/Notification";
 import Loader from "../../components/Loader/Loader";
 import { baseURL } from "../../shared/util/const";
 import TextField from "../../components/TextField/TextField";
+import ImageUpload from "./ImageUpload";
+import dropPhoto from '../../static/images/drop_logo.svg';
 
 const AddPet = () => {
   const [loading, setLoading] = useState(false);
@@ -45,13 +47,20 @@ const AddPet = () => {
         return;
       }
 
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("age", values.age)
+      formData.append("breed", values.breed)
+      formData.append("description", values.description)
+      formData.append("adoptionStatus", values.adoptionStatus)
+      formData.append("file", values.imageFile)
+
       const response = await fetch(`${baseURL}/pets/add`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token.token}`,
         },
-        body: JSON.stringify(values),
+        body: formData,
       });
 
       if (response.ok) {
@@ -83,13 +92,18 @@ const AddPet = () => {
           validationSchema={validationSchema}
           onSubmit={handleFormSubmit}
         >
-          {({ isSubmitting, errors, touched }) => (
+          {({ isSubmitting, errors, touched, values, setFieldValue }) => (
             <Form>
-              <TextField
-                label="Photo UR"
-                name="photoURL"
-                value={"photoURL"}
-                disabled={false}
+              <ImageUpload
+                  image={values.photoURL || dropPhoto}
+                  onChange={(files) => {
+                      if (files.length === 0) {
+                          return;
+                      }
+                      setFieldValue('photoURL', URL.createObjectURL(files[0]));
+                      setFieldValue('imageFile', files[0]);
+                  }}
+                  isLogo={true}
               />
               <TextField
                 label="Name"
@@ -103,14 +117,13 @@ const AddPet = () => {
                 value={"breed"}
                 disabled={false}
               />
-
-              <div className="field">
-                <label className="label">Age</label>
-                <Field className="input" name="age" type="number" />
-                {errors.age && touched.age && (
-                  <p className="help is-danger">{errors.age}</p>
-                )}
-              </div>
+              <TextField
+                label="Age"
+                name="age"
+                value={"age"}
+                type="number"
+                disabled={false}
+              />
 
               <div className="field">
                 <label className="label">Description</label>

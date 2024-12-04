@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import "./Pets.css";
-import { baseURL } from '../../shared/util/const';
+import { baseURL, createImageUrl } from '../../shared/util/const';
 import {useLoadEntity} from '../../shared/hooks/http-request-hook';
 import { Box, Button, Columns, Container, Heading, Image, Tag } from 'react-bulma-components';
 import { useMainContext } from "../../shared/context/MainContext";
@@ -10,7 +10,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useNotification } from '../../components/Notification/Notification';
 import TextField from "../../components/TextField/TextField";
-
+import ImageUpload from "./ImageUpload";
+import dropPhoto from '../../static/images/drop_logo.svg';
 
 const Pet = () => {
     const { currentUser } = useMainContext();
@@ -35,12 +36,11 @@ const Pet = () => {
     }
 
     if (error) {
-        return <assert><p>Error loading pet data. Please try again later.</p></assert>;
+        return alert("Error loading pet data. Please try again later.");
     }
 
     const handleFormSubmit = async (values, { setSubmitting }) => {
         try {
-            debugger;
             setLoading(true);
             let token = JSON.parse(localStorage.getItem("token"))
             if (!token) {
@@ -48,13 +48,25 @@ const Pet = () => {
                 setIsEditing(false);
                 return
             }
+            const formData = new FormData();
+            formData.append("name", values.name);
+            formData.append("age", values.age);
+            formData.append("description", values.description);
+            formData.append("breed", values.breed);
+            formData.append("adoptionStatus", values.adoptionStatus);
+
+            if (values.imageFile) {
+                formData.append("file", values.imageFile)
+            } else {
+                formData.append("photoURL", values.photoURL);
+            }
+
             const response = await fetch(`${baseURL}/pets/update/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
                     "authorization": `Bearer ${token.token}`
                 },
-                body: JSON.stringify(values),
+                body: formData,
             });
 
             if (response.ok) {
@@ -107,6 +119,7 @@ const Pet = () => {
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Name is required"),
         age: Yup.number().required("Age is required").min(0, "Age must be a positive number"),
+        breed: Yup.string().required("Breed is required"),
         description: Yup.string().required("Description is required"),
         photoURL: Yup.string().required("PhotoURL is required"),
         adoptionStatus: Yup.string()
@@ -123,7 +136,7 @@ const Pet = () => {
                         <Heading style={{textAlign: 'center', margin: '2em 0'}} size={1}>{petData.name}</Heading>
                         <Columns>
                         <Columns.Column size="half">
-                            <Image src={petData.photoURL} alt={`${petData.name}'s photo`} size={500} />
+                            <Image src={createImageUrl(petData.photoURL)} alt={`${petData.name}'s photo`} size={500} />
                         </Columns.Column>
 
                         <Columns.Column>
@@ -161,21 +174,28 @@ const Pet = () => {
                         initialValues={{
                             name: petData.name,
                             age: petData.age,
+                            breed: petData.breed,
                             description: petData.description,
                             adoptionStatus: petData.adoptionStatus,
-                            photoURL: petData.photoURL
+                            photoURL: petData.photoURL,
+                            imageFile: undefined
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleFormSubmit}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, values, setFieldValue }) => (
                             <Form>
                                 <Heading size={4}>Edit Pet</Heading>
-                                <TextField
-                                    label="Photo UR"
-                                    name="photoURL"
-                                    value={'photoURL'}
-                                    disabled={false}
+                                <ImageUpload
+                                    image={createImageUrl(values.photoURL) || dropPhoto}
+                                    onChange={(files) => {
+                                        if (files.length === 0) {
+                                            return;
+                                        }
+                                        setFieldValue('photoURL', URL.createObjectURL(files[0]));
+                                        setFieldValue('imageFile', files[0]);
+                                    }}
+                                    isLogo={true}
                                 />
                                 <TextField
                                     label="Name"
@@ -183,15 +203,20 @@ const Pet = () => {
                                     value={'name'}
                                     disabled={false}
                                 />
-                                 <div className="field">
-                                    <label className="label">Age</label>
-                                    <div className="control">
-                                        <Field className="input" name="age" type="number" />
-                                        {errors.age && touched.age && (
-                                            <p className="help is-danger">{errors.age}</p>
-                                        )}
-                                    </div>
-                                </div>                               
+                                <TextField
+                                    label="Breed"
+                                    name="breed"
+                                    value={'breed'}
+                                    disabled={false}
+                                />
+                                <TextField
+                                    label="Age"
+                                    name="age"
+                                    value={"age"}
+                                    type="number"
+                                    disabled={false}
+                                />
+                            
                                 <div className="field">
                                     <label className="label">Description</label>
                                     <div className="control">
