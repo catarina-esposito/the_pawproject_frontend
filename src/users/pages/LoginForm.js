@@ -98,6 +98,15 @@ const Login = () => {
                                     <Block
                                         className={`is-flex is-justify-content-center`}
                                     >
+                                     <p>
+                                            Not a member?{' '}
+                                            <Button
+                                                color="link"
+                                                onClick={() => history.push('/signup')}
+                                            >
+                                                Create an account
+                                            </Button>
+                                        </p>
                                     </Block>
                                 </Form>
                             );
